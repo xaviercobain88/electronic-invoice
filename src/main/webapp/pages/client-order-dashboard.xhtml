@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+
+		<h:form>
+			<p:commandButton id="modalDialogButton" value="Add new order"
+				onclick="orderModal.show();" type="button" />
+			<p:dataTable value="#{clientOrderDashboardDM.clientOrders}"
+				var="order" styleClass="orderTable">
+				<p:column sortBy="#{order.code}"
+					headerText="Order # (Click to Access)">
+					<h:outputText value="#{order.code}" />
+				</p:column>
+				<p:column sortBy="#{order.orderTypeEnum.name}"
+					headerText="Order Specs (Clicks to Access)">
+					<h:outputText value="#{order.orderTypeEnum.name}" />
+				</p:column>
+				<p:column sortBy="#{order.orderedBoxAmount}"
+					headerText="# PCS Ordered (Final)">
+					<h:outputText value="#{order.orderedBoxAmount}" />
+				</p:column>
+				<p:column sortBy="#{order.closedBoxAmount}"
+					headerText="# PCS Closed">
+					<h:outputText value="#{order.closedBoxAmount}" />
+				</p:column>
+				<p:column sortBy="#{order.openBoxAmount}" headerText="# PCS Open">
+					<h:outputText value="#{order.openBoxAmount}" />
+				</p:column>
+				<p:column sortBy="#{order.expiredBoxAmount}"
+					headerText="# PCS Expired / Canceled">
+					<h:outputText value="#{order.expiredBoxAmount}" />
+				</p:column>
+				<p:column sortBy="#{order.shippedBoxAmount}"
+					headerText="# PCS Shipped (Final)">
+					<h:outputText value="#{order.shippedBoxAmount}" />
+				</p:column>
+				<p:column sortBy="#{order.orderDeadline}"
+					headerText="Deadline to Close Order">
+					<h:outputText value="#{order.orderDeadline}" />
+				</p:column>
+				<p:column sortBy="#{order.orderStatusOrderEnum.name}"
+					headerText="Ordering Status">
+					<h:outputText value="#{order.orderStatusOrderEnum.name}" />
+				</p:column>
+				<p:column sortBy="#{order.receivingStatusOrderEnum}"
+					headerText="Receiving Status">
+					<h:outputText value="#{order.receivingStatusOrderEnum}" />
+				</p:column>
+				<p:column sortBy="#{order.creditDeadline}"
+					headerText="Deadline to Issue Credit">
+					<h:outputText value="#{order.creditDeadline}" />
+				</p:column>
+				<p:column headerText="Options">
+				</p:column>
+
+
+			</p:dataTable>
+			<p:remoteCommand name="reRenderTable" update="@(.orderTable)"
+				actionListener="#{orderWizardAction.updateOrderList}">
+			</p:remoteCommand>
+		</h:form>
+
+
+		<p:dialog id="orderModalId" header="Order Setup"
+			widgetVar="orderModal" modal="true" height="auto" width="800"
+			position="150,50" onHide="reRenderTable()">
+
+			<h:form>
+
+
+				<p:wizard widgetVar="wiz"
+					flowListener="#{orderWizardAction.onFlowProcess}">
+
+					<p:tab id="orderTypeId" title="Order Type">
+
+						<p:panel header="Select your Order type">
+							<h:messages errorClass="error" />
+							<h:panelGrid columns="1">
+
+								<h:outputLabel value="Please Select an order type" />
+								<p:selectOneRadio id="orderTypeSelectId"
+									value="#{orderWizardDM.wizardOrder.orderTypeEnum}"
+									layout="pageDirection" required="true">
+									<p:ajax process="orderTypeSelectId" partialSubmit="true"
+										event="change" />
+									<f:selectItems
+										value="#{orderWizardAction.orderTypeSelectItems}" />
+								</p:selectOneRadio>
+							</h:panelGrid>
+
+
+						</p:panel>
+					</p:tab>
+
+					<p:tab id="posId" title="POS and Delivery Date to POS">
+						<p:panel header="Choose a POS and Delivery date to POS">
+
+							<h:messages errorClass="error" />
+							<div class="bold-text">Please Select a POS: Some
+								description that explains the relationship between POS leadTime
+								and products availability</div>
+							<div class="normal-text"></div>
+
+							<h:panelGrid columns="2">
+								<h:outputText value="Current Date: " class="bold-text" />
+								<h:outputText value="#{orderWizardAction.currentDate}"
+									class="normal-text" />
+								<h:outputText value="Current Time: " class="bold-text" />
+								<h:outputText value="#{orderWizardAction.currentTime}"
+									class="normal-text" />
+								<h:outputText value="Deadline to Ship Today: " class="bold-text" />
+								<h:outputText value="Not Defined" class="normal-text" />
+								<h:outputText value="Time remaining to Ship Today: "
+									class="bold-text" />
+								<h:outputText value="Not Defined" class="normal-text" />
+							</h:panelGrid>
+
+							<p:dataTable value="#{orderWizardDM.posList}" var="pos">
+
+								<p:column headerText="Avail. Points of Sales (POS)">
+									<h:outputText value="#{pos.description}" />
+								</p:column>
+
+								<p:column headerText="List of Products">
+									<h:outputText value="#{pos.productList}" />
+								</p:column>
+
+								<p:column headerText="Lead Time">
+									<h:outputText value="#{pos.leadTimeDescription}" />
+								</p:column>
+
+								<p:column headerText="Arrival to POS, if Shipped Today">
+									<h:outputText value="#{pos.arrivalToPOS}" />
+								</p:column>
+
+							</p:dataTable>
+
+							<h:panelGrid columns="2">
+								<h:outputText value="Choose POS" class="bold-text" />
+								<p:selectOneRadio id="posSelectId" required="true"
+									value="#{orderWizardDM.wizardOrder.pos}">
+									<f:selectItems value="#{orderWizardDM.posSelectItems}" />
+								</p:selectOneRadio>
+								<h:outputText value="Choose Delivery Date to POS"
+									class="bold-text" />
+								<p:calendar value="#{orderWizardDM.wizardOrder.deliveryDatePos}"
+									required="true"></p:calendar>
+
+							</h:panelGrid>
+
+						</p:panel>
+					</p:tab>
+
+					<p:tab id="finalDestinationId" title="Final destination">
+						<p:panel header="Provide a Final Destination">
+
+							<h:messages errorClass="error" />
+							<div class="bold-text">Please choose a Final Destination:</div>
+							<div class="normal-text">Some description that explains the
+								business rules associated to the Final Destination.</div>
+							<br />
+							<div class="normal-text">Please enter the address of the
+								final destination for</div>
+							<div class="bold-text">the cargo of this order:</div>
+							<br />
+							<h:panelGrid columns="1">
+								<h:outputText value="My Shipping Addresses" class="bold-text" />
+								<p:selectOneRadio id="shippingAddressSelectId" required="true"
+									value="#{orderWizardDM.wizardOrder.shippingAddressId}"
+									layout="pageDirection">
+									<f:selectItems
+										value="#{orderWizardDM.shippingAddressSelectItems}" />
+								</p:selectOneRadio>
+
+							</h:panelGrid>
+
+						</p:panel>
+					</p:tab>
+
+					<p:tab id="successId" title="Success">
+						<p:panel header="Your Order has been created Succesfully">
+							<h:messages errorClass="error" />
+
+						</p:panel>
+
+
+						<p:commandButton value="Ok"
+							action="#{orderWizardAction.updateOrderList}"
+							update="@(.orderTable)" onclick="orderModal.close();" />
+					</p:tab>
+
+				</p:wizard>
+
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

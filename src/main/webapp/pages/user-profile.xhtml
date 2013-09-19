@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="userFormId">
+			<p:tabView id="tabView">
+
+
+				<p:tab title="Personal Information" id="personalTabId">
+					<h:panelGrid columns="3">
+						<h:outputLabel value="Username: " />
+						<p:inputText value="#{userProfileDM.user.username}"
+							id="usernameId">
+							<p:ajax process="usernameId" partialSubmit="true"
+								update="usernameOutputId" event="blur"
+								listener="#{userProfileAction.validateUsername}" />
+						</p:inputText>
+						<p:outputPanel id="usernameOutputId">
+							<h:outputText value="Valid username" styleClass="info-message"
+								rendered="#{userProfileDM.usernameUnique}" />
+							<h:outputText value="Invalid username" styleClass="error-message"
+								rendered="#{userProfileDM.usernameUnique ne null and !userProfileDM.usernameUnique}" />
+							<p:message for="usernameId"></p:message>
+						</p:outputPanel>
+
+						<h:outputLabel value="e-mail: " />
+						<p:inputText id="emailId" value="#{userProfileDM.user.eMail}">
+							<p:ajax process="emailId" partialSubmit="true" event="blur"
+								listener="#{userProfileAction.validateEmail}"
+								update="emailOutputId" />
+						</p:inputText>
+						<p:outputPanel id="emailOutputId">
+							<h:outputText value="Valid e-mail" styleClass="info-message"
+								rendered="#{userProfileDM.emailUnique}" />
+							<h:outputText value="Invalid e-mail" styleClass="error-message"
+								rendered="#{userProfileDM.emailUnique ne null and !userProfileDM.emailUnique}" />
+							<p:message for="emailId"></p:message>
+						</p:outputPanel>
+						<h:outputLabel value="Password: " />
+						<p:password value="#{userProfileDM.user.password}" id="passwordId">
+							<p:ajax process="passwordId" partialSubmit="true" event="blur" />
+						</p:password>
+						<p:message for="passwordId"></p:message>
+						<h:outputLabel value="Re-Type Password: " />
+						<p:password value="#{userProfileDM.user.reTypePasssword}"
+							id="reTypePasswordId">
+							<p:ajax process="reTypePasswordId" partialSubmit="true"
+								event="blur" update="reTypePasswordOutputId"
+								listener="#{userProfileAction.validateReTypePassword}" />
+						</p:password>
+						<p:outputPanel id="reTypePasswordOutputId">
+							<h:outputText value="Valid retype password"
+								styleClass="info-message"
+								rendered="#{userProfileDM.reTypePasswordUnique}" />
+							<h:outputText value="Invalid retype password"
+								styleClass="info-message"
+								rendered="#{userProfileDM.reTypePasswordUnique ne null and !userProfileDM.reTypePasswordUnique}" />
+						</p:outputPanel>
+
+					</h:panelGrid>
+
+				</p:tab>
+
+				<p:tab title="Company Information" id="companyTabId">
+
+					<h:panelGrid columns="3">
+						<h:outputLabel value="Company Name: " />
+						<p:inputText id="companyNameId"
+							value="#{userProfileDM.user.companyName}">
+							<p:ajax process="companyNameId" partialSubmit="true" event="blur" />
+						</p:inputText>
+						<p:message for="companyNameId"></p:message>
+						<h:outputLabel value="Type of Company: " />
+						<p:selectOneMenu id="companyTypeSelectId"
+							value="#{userProfileDM.user.companyTypeId}"
+							layout="pageDirection">
+							<p:ajax process="companyTypeSelectId" partialSubmit="true"
+								event="change" />
+							<f:selectItems
+								value="#{userProfileAction.companyTypeSelectItems}" />
+						</p:selectOneMenu>
+						<p:message for="companyTypeSelectId"></p:message>
+						<h:outputLabel value="Tax ID Number: " />
+						<p:inputText id="taxNumberId"
+							value="#{userProfileDM.user.taxIdNumber}">
+							<p:ajax process="taxNumberId" partialSubmit="true" event="blur" />
+						</p:inputText>
+						<p:message for="taxNumberId"></p:message>
+						<h:outputLabel value="Legal Formation: " />
+						<p:selectOneMenu id="legalFormationSelectId"
+							value="#{userProfileDM.user.legalFormationId}"
+							layout="pageDirection">
+							<p:ajax process="legalFormationSelectId" partialSubmit="true"
+								event="change" />
+							<f:selectItems
+								value="#{userProfileAction.legalFormationSelectItems}" />
+						</p:selectOneMenu>
+						<p:message for="legalFormationSelectId"></p:message>
+					</h:panelGrid>
+
+					<p:fieldset legend="Company Bill to Address" toggleable="true"
+						toggleSpeed="500">
+						<h:panelGrid columns="3">
+							<h:outputLabel value="Country: " />
+							<p:selectOneMenu id="countrySelectId"
+								value="#{userProfileDM.billToAddress.countryId}"
+								layout="pageDirection">
+								<p:ajax process="countrySelectId" partialSubmit="true"
+									event="change" update="stateSelectId" />
+								<f:selectItems value="#{userProfileAction.countries}" />
+							</p:selectOneMenu>
+							<p:message for="stateSelectId"></p:message>
+							<h:outputLabel value="State/Province: " />
+							<p:selectOneMenu id="stateSelectId"
+								value="#{userProfileDM.billToAddress.stateId}"
+								layout="pageDirection">
+								<p:ajax process="stateSelectId" partialSubmit="true"
+									event="change" />
+								<f:selectItems
+									value="#{userProfileAction.statesFromBillAddress}" />
+							</p:selectOneMenu>
+							<p:message for="stateSelectId"></p:message>
+							<h:outputLabel value="Zip/Postal Code: " />
+							<p:inputText id="zipId"
+								value="#{userProfileDM.billToAddress.zipCode}">
+								<p:ajax process="zipId" partialSubmit="true" event="blur" />
+							</p:inputText>
+							<p:message for="zipId"></p:message>
+
+							<h:outputLabel value="Number and Street: " />
+							<p:inputText id="streetId"
+								value="#{userProfileDM.billToAddress.numberString}">
+								<p:ajax process="streetId" partialSubmit="true" event="blur" />
+							</p:inputText>
+							<p:message for="streetId"></p:message>
+							<h:outputLabel value="Suite/Unit: " />
+							<p:inputText id="suiteId"
+								value="#{userProfileDM.billToAddress.suiteUnit}">
+								<p:ajax process="suiteId" partialSubmit="true" event="blur" />
+							</p:inputText>
+							<p:message for="suiteId"></p:message>
+						</h:panelGrid>
+					</p:fieldset>
+
+					<p:fieldset legend="Company Ship to Address" toggleable="true"
+						toggleSpeed="500" id="shipAddressSetId">
+
+						<p:dataList var="address" id="shipAddressDataListId"
+							value="#{userProfileDM.user.shippingAddresses}">
+							<p:outputPanel id="outputPanelShipAddressId" autoUpdate="true"
+								rendered="#{address.active and address.addressTypeEnum.name eq 'Ship to Address'}">
+								<h:panelGrid columns="3">
+									<h:outputLabel value="Country: " />
+									<p:selectOneMenu id="countrySelectId2"
+										value="#{address.countryId}" layout="pageDirection">
+										<p:ajax process="countrySelectId2" partialSubmit="true"
+											event="change" update="stateSelectId2" />
+										<f:selectItems value="#{userProfileAction.countries}" />
+									</p:selectOneMenu>
+									<p:message for="countrySelectId2"></p:message>
+									<h:outputLabel value="State/Province: " />
+									<p:selectOneMenu id="stateSelectId2" value="#{address.stateId}"
+										layout="pageDirection">
+										<p:ajax process="stateSelectId2" partialSubmit="true"
+											event="change" />
+										<f:selectItems
+											value="#{userProfileAction.statesFromShippingAddress}" />
+									</p:selectOneMenu>
+									<p:message for="stateSelectId2"></p:message>
+									<h:outputLabel value="Zip/Postal Code: " />
+									<p:inputText id="zipId2" value="#{address.zipCode}">
+										<p:ajax process="zipId2" partialSubmit="true" event="blur" />
+									</p:inputText>
+									<p:message for="zipId2"></p:message>
+
+									<h:outputLabel value="Number and Street: " />
+									<p:inputText id="streetId2" value="#{address.numberString}">
+										<p:ajax process="streetId2" partialSubmit="true" event="blur" />
+									</p:inputText>
+									<p:message for="streetId2"></p:message>
+									<h:outputLabel value="Suite/Unit: " />
+									<p:inputText id="suiteId2" value="#{address.suiteUnit}">
+										<p:ajax process="suiteId2" partialSubmit="true" event="blur" />
+									</p:inputText>
+									<p:message for="suiteId2"></p:message>
+
+								</h:panelGrid>
+								<p:commandButton value="Delete Shipping Address"
+									actionListener="#{userProfileAction.deleteShipAddress}"
+									process="@this" update="shipAddressDataListId"></p:commandButton>
+							</p:outputPanel>
+						</p:dataList>
+						<p:commandButton value="Add Shipping Address"
+							update="shipAddressDataListId" process="@this"
+							actionListener="#{userProfileAction.addShipAddress}"></p:commandButton>
+						<h:panelGrid columns="3">
+							<h:outputLabel value="Phone Number: " />
+							<p:inputText id="phoneNumberId"
+								value="#{userProfileDM.user.companyPhoneNumber}">
+								<p:ajax process="phoneNumberId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="phoneNumberId"></p:message>
+
+							<h:outputLabel value="Fax Number: " />
+							<p:inputText id="faxNumberId"
+								value="#{userProfileDM.user.companyPhoneNumber}">
+								<p:ajax process="faxNumberId" partialSubmit="true" event="blur" />
+							</p:inputText>
+							<p:message for="faxNumberId"></p:message>
+							<h:outputLabel value="e-mail Address: " />
+							<p:inputText id="companyEMailId"
+								value="#{userProfileDM.user.companyEMail}">
+								<p:ajax process="companyEMailId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="companyEMailId"></p:message>
+
+							<h:outputLabel value="Website: " />
+							<p:inputText id="companyWebsiteId"
+								value="#{userProfileDM.user.companyWebsite}">
+								<p:ajax process="companyWebsiteId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="companyWebsiteId"></p:message>
+						</h:panelGrid>
+
+					</p:fieldset>
+
+				</p:tab>
+
+				<p:tab title="Contact Information" id="contactTabId">
+					<p:fieldset
+						legend="Principal Responsible for Business Transactions"
+						toggleable="true" toggleSpeed="500" id="principalInformationId">
+						<h:panelGrid columns="3">
+
+							<h:outputLabel value="Title: " />
+							<p:inputText id="principalTitleId"
+								value="#{userProfileDM.principalContactInformation.title}">
+								<p:ajax process="principalTitleId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="principalTitleId"></p:message>
+
+							<h:outputLabel value="Name: " />
+							<p:inputText id="principalNameId"
+								value="#{userProfileDM.principalContactInformation.name}">
+								<p:ajax process="principalNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="principalNameId"></p:message>
+
+							<h:outputLabel value="Last Name: " />
+							<p:inputText id="principalLastNameId"
+								value="#{userProfileDM.principalContactInformation.lastName}">
+								<p:ajax process="principalLastNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="principalLastNameId"></p:message>
+
+							<h:outputLabel value="Day Time Telephone: " />
+							<p:inputText id="principalTelephoneNameId"
+								value="#{userProfileDM.principalContactInformation.dayTimeTelephone}">
+								<p:ajax process="principalTelephoneNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="principalTelephoneNameId"></p:message>
+
+							<h:outputLabel value="Mobile Number: " />
+							<p:inputText id="principalMobileNameId"
+								value="#{userProfileDM.principalContactInformation.mobileNumer}">
+								<p:ajax process="principalMobileNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="principalMobileNameId"></p:message>
+
+							<h:outputLabel value="Fax Number: " />
+							<p:inputText id="principalFaxNameId"
+								value="#{userProfileDM.principalContactInformation.faxNumber}">
+								<p:ajax process="principalFaxNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="principalFaxNameId"></p:message>
+
+							<h:outputLabel value="e-mail Address: " />
+							<p:inputText id="principalEMailNameId"
+								value="#{userProfileDM.principalContactInformation.eMail}">
+								<p:ajax process="principalEMailNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="principalEMailNameId"></p:message>
+						</h:panelGrid>
+					</p:fieldset>
+
+					<p:fieldset legend="Person in Charge of Procurement"
+						toggleable="true" toggleSpeed="500" id="procurementInformationId">
+						<h:panelGrid columns="3">
+							<h:outputLabel value="Title: " />
+							<p:inputText id="procurementTitleId"
+								value="#{userProfileDM.procurementContactInformation.title}">
+								<p:ajax process="procurementTitleId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="principalEMailNameId"></p:message>
+
+							<h:outputLabel value="Name: " />
+							<p:inputText id="procurementNameId"
+								value="#{userProfileDM.procurementContactInformation.name}">
+								<p:ajax process="procurementNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="procurementNameId"></p:message>
+
+							<h:outputLabel value="Last Name: " />
+							<p:inputText id="procurementLastNameId"
+								value="#{userProfileDM.procurementContactInformation.lastName}">
+								<p:ajax process="procurementLastNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="procurementLastNameId"></p:message>
+
+							<h:outputLabel value="Day Time Telephone: " />
+							<p:inputText id="procurementTelephoneNameId"
+								value="#{userProfileDM.procurementContactInformation.dayTimeTelephone}">
+								<p:ajax process="procurementTelephoneNameId"
+									partialSubmit="true" event="blur" />
+							</p:inputText>
+							<p:message for="procurementTelephoneNameId"></p:message>
+
+							<h:outputLabel value="Mobile Number: " />
+							<p:inputText id="procurementMobileNameId"
+								value="#{userProfileDM.procurementContactInformation.mobileNumer}">
+								<p:ajax process="procurementMobileNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="procurementMobileNameId"></p:message>
+
+							<h:outputLabel value="Fax Number: " />
+							<p:inputText id="procurementFaxNameId"
+								value="#{userProfileDM.procurementContactInformation.faxNumber}">
+								<p:ajax process="procurementFaxNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="procurementFaxNameId"></p:message>
+
+							<h:outputLabel value="e-mail Address: " />
+							<p:inputText id="procurementEMailNameId"
+								value="#{userProfileDM.procurementContactInformation.eMail}">
+								<p:ajax process="procurementEMailNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="procurementEMailNameId"></p:message>
+						</h:panelGrid>
+					</p:fieldset>
+
+					<p:fieldset legend="Person in Charge of Accounts Payable"
+						toggleable="true" toggleSpeed="500"
+						id="accountPayableInformationId">
+						<h:panelGrid columns="3">
+							<h:outputLabel value="Title: " />
+							<p:inputText id="accountPayableTitleId"
+								value="#{userProfileDM.accountPayableContactInformation.title}">
+								<p:ajax process="accountPayableTitleId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="accountPayableTitleId"></p:message>
+
+							<h:outputLabel value="Name: " />
+							<p:inputText id="accountPayableNameId"
+								value="#{userProfileDM.accountPayableContactInformation.name}">
+								<p:ajax process="accountPayableNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="accountPayableNameId"></p:message>
+
+							<h:outputLabel value="Last Name: " />
+							<p:inputText id="accountPayableLastNameId"
+								value="#{userProfileDM.accountPayableContactInformation.lastName}">
+								<p:ajax process="accountPayableLastNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="accountPayableLastNameId"></p:message>
+
+							<h:outputLabel value="Day Time Telephone: " />
+							<p:inputText id="accountPayableTelephoneNameId"
+								value="#{userProfileDM.accountPayableContactInformation.dayTimeTelephone}">
+								<p:ajax process="accountPayableTelephoneNameId"
+									partialSubmit="true" event="blur" />
+							</p:inputText>
+							<p:message for="accountPayableTelephoneNameId"></p:message>
+
+							<h:outputLabel value="Mobile Number: " />
+							<p:inputText id="accountPayableMobileNameId"
+								value="#{userProfileDM.accountPayableContactInformation.mobileNumer}">
+								<p:ajax process="accountPayableMobileNameId"
+									partialSubmit="true" event="blur" />
+							</p:inputText>
+							<p:message for="accountPayableMobileNameId"></p:message>
+
+							<h:outputLabel value="Fax Number: " />
+							<p:inputText id="accountPayableFaxNameId"
+								value="#{userProfileDM.accountPayableContactInformation.faxNumber}">
+								<p:ajax process="accountPayableFaxNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="accountPayableFaxNameId"></p:message>
+
+							<h:outputLabel value="e-mail Address: " />
+							<p:inputText id="accountPayableEMailNameId"
+								value="#{userProfileDM.accountPayableContactInformation.eMail}">
+								<p:ajax process="accountPayableEMailNameId" partialSubmit="true"
+									event="blur" />
+							</p:inputText>
+							<p:message for="accountPayableEMailNameId"></p:message>
+						</h:panelGrid>
+					</p:fieldset>
+
+				</p:tab>
+
+				<p:tab title="Account Status" id="statusTabId">
+
+					<h:outputLabel value="Your account status is: " />
+					<h:outputText value="#{userProfileDM.user.elementStatusEnum}" />
+
+				</p:tab>
+
+				<p:tab title="Credit Terms and Limits" id="creditTabId">
+					<h:panelGrid columns="3">
+						<h:outputLabel value="In Business since: " />
+						<p:inputText id="inBusinessId"
+							value="#{userProfileDM.user.inBusinessSince}">
+							<p:ajax process="inBusinessId" partialSubmit="true" event="blur" />
+						</p:inputText>
+						<p:message for="inBusinessId"></p:message>
+
+						<h:outputLabel value="Number of Employees: " />
+						<p:inputText id="numberEmployeesId"
+							value="#{userProfileDM.user.employeesNumber}">
+							<p:ajax process="numberEmployeesId" partialSubmit="true"
+								event="blur" />
+						</p:inputText>
+						<p:message for="numberEmployeesId"></p:message>
+
+						<h:outputLabel value="Yearly Sales volume: " />
+						<p:inputText id="yearlySalesId"
+							value="#{userProfileDM.user.yearlySalesVolume}">
+							<p:ajax process="yearlySalesId" partialSubmit="true" event="blur" />
+						</p:inputText>
+						<p:message for="yearlySalesId"></p:message>
+
+						<h:outputLabel value="Requested Credit Limit: " />
+						<p:inputText id="requestedCreditId"
+							value="#{userProfileDM.user.requestedCreditLimit}">
+							<p:ajax process="requestedCreditId" partialSubmit="true"
+								event="blur" />
+						</p:inputText>
+						<p:message for="requestedCreditId"></p:message>
+					</h:panelGrid>
+					<p:fieldset legend="Bank Reference(s)" toggleable="true"
+						toggleSpeed="500" id="bankReferencesId">
+
+						<p:dataList var="bankReference" id="bankReferenceDataListId"
+							value="#{userProfileDM.user.bankReferences}">
+							<p:outputPanel autoUpdate="true"
+								rendered="#{bankReference.active}">
+								<h:panelGrid columns="3">
+									<h:outputLabel value="Institution Name: " />
+									<p:inputText id="institutionNameId"
+										value="#{bankReference.institutionName}">
+										<p:ajax process="institutionNameId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="institutionNameId"></p:message>
+
+									<h:outputLabel value="Checking Account #: " />
+									<p:inputText id="checkingAccountId"
+										value="#{bankReference.checkingAccountNumber}">
+										<p:ajax process="checkingAccountId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="checkingAccountId"></p:message>
+
+									<h:outputLabel value="Account Open Since: " />
+									<p:inputText id="openSinceId"
+										value="#{bankReference.openSince}">
+										<p:ajax process="openSinceId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="openSinceId"></p:message>
+
+
+									<h:outputLabel value="Country: " />
+									<p:selectOneMenu id="countryBRSelectId"
+										value="#{bankReference.shippingAddress.countryId}"
+										layout="pageDirection">
+										<p:ajax process="countryBRSelectId" partialSubmit="true"
+											event="change" update="stateBRSelectId" />
+										<f:selectItems value="#{userProfileAction.countries}" />
+									</p:selectOneMenu>
+									<p:message for="countryBRSelectId"></p:message>
+
+									<h:outputLabel value="State/Province: " />
+									<p:selectOneMenu id="stateBRSelectId"
+										value="#{bankReference.shippingAddress.stateId}"
+										layout="pageDirection">
+										<p:ajax process="stateBRSelectId" partialSubmit="true"
+											event="change" />
+										<f:selectItems
+											value="#{userProfileAction.statesFromBankReference}" />
+									</p:selectOneMenu>
+									<p:message for="stateBRSelectId"></p:message>
+
+									<h:outputLabel value="Zip/Postal Code: " />
+									<p:inputText id="zipBRId"
+										value="#{bankReference.shippingAddress.zipCode}">
+										<p:ajax process="zipBRId" partialSubmit="true" event="blur" />
+									</p:inputText>
+									<p:message for="zipBRId"></p:message>
+
+									<h:outputLabel value="Number and Street: " />
+									<p:inputText id="streeBRtId"
+										value="#{bankReference.shippingAddress.numberString}">
+										<p:ajax process="streeBRtId" partialSubmit="true" event="blur" />
+									</p:inputText>
+									<p:message for="streeBRtId"></p:message>
+
+									<h:outputLabel value="Suite/Unit: " />
+									<p:inputText id="suiteBRId"
+										value="#{bankReference.shippingAddress.suiteUnit}">
+										<p:ajax process="suiteBRId" partialSubmit="true" event="blur" />
+									</p:inputText>
+									<p:message for="suiteBRId"></p:message>
+
+									<h:outputLabel value="Phone Number: " />
+									<p:inputText id="phoneNumberBRId"
+										value="#{bankReference.phoneNumber}">
+										<p:ajax process="phoneNumberBRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="phoneNumberBRId"></p:message>
+
+									<h:outputLabel value="Fax Number: " />
+									<p:inputText id="faxNumberBRId"
+										value="#{bankReference.faxNumber}">
+										<p:ajax process="faxNumberBRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="faxNumberBRId"></p:message>
+
+									<h:outputLabel value="e-mail Address: " />
+									<p:inputText id="companyEMailBRId"
+										value="#{bankReference.eMail}">
+										<p:ajax process="companyEMailBRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="companyEMailBRId"></p:message>
+								</h:panelGrid>
+
+								<p:commandButton value="Delete Bank Reference"
+									update="bankReferenceDataListId" process="@this"
+									actionListener="#{userProfileAction.deleteBankReference}"></p:commandButton>
+							</p:outputPanel>
+						</p:dataList>
+						<p:commandButton value="Add Bank Reference"
+							update="bankReferenceDataListId" process="@this"
+							actionListener="#{userProfileAction.addBankReference}"></p:commandButton>
+
+					</p:fieldset>
+
+
+					<p:fieldset legend="Trade Reference(s)" toggleable="true"
+						toggleSpeed="500" id="tradeReferencesId">
+
+						<p:dataList var="tradeReference" id="tradeReferenceDataListId"
+							value="#{userProfileDM.user.tradeReferences}">
+							<p:outputPanel autoUpdate="true"
+								rendered="#{tradeReference.active}">
+								<h:panelGrid columns="3">
+									<h:outputLabel value="Company Name: " />
+									<p:inputText id="companyNameTRId"
+										value="#{tradeReference.companyName}">
+										<p:ajax process="companyNameTRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="companyNameTRId"></p:message>
+
+
+									<h:outputLabel value="Country: " />
+									<p:selectOneMenu id="countryTRSelectId"
+										value="#{tradeReference.shippingAddress.countryId}"
+										layout="pageDirection">
+										<p:ajax process="countryTRSelectId" partialSubmit="true"
+											event="change" update="stateTRSelectId" />
+										<f:selectItems value="#{userProfileAction.countries}" />
+									</p:selectOneMenu>
+									<p:message for="countryTRSelectId"></p:message>
+									<h:outputLabel value="State/Province: " />
+									<p:selectOneMenu id="stateTRSelectId"
+										value="#{tradeReference.shippingAddress.stateId}"
+										layout="pageDirection">
+										<p:ajax process="stateTRSelectId" partialSubmit="true"
+											event="change" />
+										<f:selectItems
+											value="#{userProfileAction.statesFromTradeReference}" />
+									</p:selectOneMenu>
+									<p:message for="stateTRSelectId"></p:message>
+									<h:outputLabel value="Zip/Postal Code: " />
+									<p:inputText id="zipTRId"
+										value="#{tradeReference.shippingAddress.zipCode}">
+										<p:ajax process="zipTRId" partialSubmit="true" event="blur" />
+									</p:inputText>
+									<p:message for="zipTRId"></p:message>
+
+									<h:outputLabel value="Number and Street: " />
+									<p:inputText id="streeTRtId"
+										value="#{tradeReference.shippingAddress.numberString}">
+										<p:ajax process="streeTRtId" partialSubmit="true" event="blur" />
+									</p:inputText>
+									<p:message for="streeTRtId"></p:message>
+
+									<h:outputLabel value="Suite/Unit: " />
+									<p:inputText id="suiteTRId"
+										value="#{tradeReference.shippingAddress.suiteUnit}">
+										<p:ajax process="suiteTRId" partialSubmit="true" event="blur" />
+									</p:inputText>
+									<p:message for="suiteTRId"></p:message>
+
+									<h:outputLabel value="Phone Number: " />
+									<p:inputText id="phoneNumberTRId"
+										value="#{tradeReference.phoneNumber}">
+										<p:ajax process="phoneNumberTRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="phoneNumberTRId"></p:message>
+
+									<h:outputLabel value="Fax Number: " />
+									<p:inputText id="faxNumberTRId"
+										value="#{tradeReference.faxNumber}">
+										<p:ajax process="faxNumberTRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="faxNumberTRId"></p:message>
+
+									<h:outputLabel value="e-mail Address: " />
+									<p:inputText id="companyEMailTRId"
+										value="#{tradeReference.eMail}">
+										<p:ajax process="companyEMailTRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+
+									<p:message for="companyEMailTRId"></p:message>
+
+									<h:outputLabel value="Contact Name: " />
+									<p:inputText id="contactNameTRId"
+										value="#{tradeReference.contactName}">
+										<p:ajax process="contactNameTRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="contactNameTRId"></p:message>
+
+									<h:outputLabel value="Account Open Since: " />
+									<p:inputText id="openSinceTRId"
+										value="#{tradeReference.openSince}">
+										<p:ajax process="openSinceTRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="openSinceTRId"></p:message>
+
+									<h:outputLabel value="Credit Terms: " />
+									<p:inputText id="creditTermsTRId"
+										value="#{tradeReference.creditTerms}">
+										<p:ajax process="creditTermsTRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="creditTermsTRId"></p:message>
+
+									<h:outputLabel value="Credit Limit: " />
+									<p:inputText id="creditLimitTRId"
+										value="#{tradeReference.creditLimit}">
+										<p:ajax process="creditLimitTRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="creditLimitTRId"></p:message>
+
+									<h:outputLabel value="Current Balance: " />
+									<p:inputText id="currentBalanceTRId"
+										value="#{tradeReference.current_balance}">
+										<p:ajax process="currentBalanceTRId" partialSubmit="true"
+											event="blur" />
+									</p:inputText>
+									<p:message for="currentBalanceTRId"></p:message>
+								</h:panelGrid>
+
+								<p:commandButton value="Delete Trade Reference"
+									update="tradeReferenceDataListId" process="@this"
+									actionListener="#{userProfileAction.deleteTradeReference}"></p:commandButton>
+							</p:outputPanel>
+						</p:dataList>
+						<p:commandButton value="Add Trade Reference"
+							actionListener="#{userProfileAction.addTradeReference}"
+							update="tradeReferenceDataListId" process="@this"></p:commandButton>
+
+					</p:fieldset>
+
+
+
+
+
+
+				</p:tab>
+
+			</p:tabView>
+			<p:commandButton value="Save"
+				actionListener="#{userProfileAction.saveUser}" ajax="false"></p:commandButton>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

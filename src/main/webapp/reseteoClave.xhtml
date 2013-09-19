@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<f:view>
+	<h:head>
+		<h:outputStylesheet name="sigse.css" library="css" />
+		<link rel="shortcut icon" type="image/x-icon"
+			href="#{request.contextPath}/resources/images/unisegurosfavicon.ico" />
+		<title>SIGSE-Uniseguros</title>
+	</h:head>
+	<h:body>
+		<div id="resetPasswordHeader" style="margin-left: 3px">
+			<h:graphicImage value="/resources/images/layout/logo.png" />
+		</div>
+		<br clear="all" />
+		<h:form style="margin-left: 3px">
+			<h:outputText value="#{msg.lbl_resetear_clave}"
+				styleClass="bienvenido" />
+			<h:panelGrid style="margin-left:25px">
+				<h:outputText
+					value="#{msg.lbl_simbolo_obligatorio} #{msg.msj_reseteo_clave_usuario}" />
+			</h:panelGrid>
+			<h:panelGrid columns="2" style="margin-left:25px">
+				<h:outputText value="#{msg.lbl_usuario}" />
+				<h:inputText value="#{usuarioDM.userName}" styleClass = "inputTextWidth"/>
+				<br />
+				<a4j:outputPanel>
+					<a4j:commandButton value="#{msg.lbl_aceptar}"
+						action="#{cambioClaveController.sendNewPassword}"
+						onclick="this.disabled=true" oncomplete="this.disabled=false"
+						style="margin-right:5px">
+					</a4j:commandButton>
+					<a4j:commandButton value="#{msg.lbl_cancelar}"
+						onclick="window.close();" />
+				</a4j:outputPanel>
+			</h:panelGrid>
+			<h:panelGrid style="margin-left:25px;padding-top:3px">
+				<rich:message id="msgs" />
+			</h:panelGrid>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

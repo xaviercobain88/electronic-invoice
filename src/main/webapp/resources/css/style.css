@@ -1,0 +1,475 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td
+	{
+	margin: 0;
+	padding: 0;
+}
+
+::selection {
+	background: white;
+	color: black;
+}
+
+fieldset,img {
+	border: 0;
+}
+
+body { /*background: #040001 url(../images/bg.jpg) repeat;*/
+	color: white;
+	padding: 0;
+	margin: 0;
+	font-family: Arial;
+}
+
+html,body,#superContainer {
+	height: 100%;
+}
+
+body>#superContainer {
+	height: auto;
+	min-height: 100%;
+}
+
+.bg_color {
+	background: url(../images/bg_color.jpg) repeat-x;
+	height: 22px;
+}
+
+#header {
+	background: #040001 url(../images/bg.jpg) repeat;
+}
+
+.wrapper2 {
+	width: 925px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#trokit {
+	background: #040001
+		url("#{request.contextPath}/resources/images/escudo.png") no-repeat;
+	display: block;
+	padding: 0;
+	margin: 0;
+	top: 17px;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	cursor: default;
+	width: 83px;
+	cursor: pointer;
+	z-index: 100;
+	height: 65px;
+}
+
+a {
+	color: #333;
+}
+
+#nav {
+	font: 13px/27px 'ColaborateBoldRegular', Arial, sans-serif;
+	background: black;
+	float: right;
+	padding: 10px 0 10px 0;
+	list-style: none;
+	text-transform: uppercase;
+	position: relative;
+	margin-right: -40px;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+#nav li {
+	float: left;
+	margin-right: 18px;
+	width: 100px;
+	text-align: center;
+}
+
+#nav li a {
+	text-decoration: none;
+	display: block;
+	color: white;
+	position: relative;
+}
+
+.clear {
+	clear: both;
+}
+
+.quote1 {
+	text-transform: uppercase;
+	color: white;
+	background: #040001;
+}
+
+div.services {
+	padding: 15px 0px;
+	padding-bottom: 8px;
+}
+
+.wrapper {
+	position: relative;
+	width: 930px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.quote1 h1 {
+	font: 70px/70px 'ColaborateMediumRegular', Arial, sans-serif;
+	text-transform: uppercase;
+	margin: 0;
+	letter-spacing: 8px;
+	float: left;
+	padding: 0;
+	font-weight: none;
+}
+
+.quote1 h1.services,.quote h1.clients {
+	font: 35px/25px 'ColaborateThinRegular', Arial, sans-serif;
+}
+
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style: normal;
+	font-weight: normal;
+}
+
+.quote1 h1.services strong,.quote h1.clients strong {
+	font-family: 'ColaborateMediumRegular', Arial, sans-serif;
+}
+
+.quote1 h2 {
+	text-transform: uppercase;
+	font: 70px/70px 'ColaborateThinRegular', Arial, sans-serif;
+	font-weight: none;
+	float: left;
+	letter-spacing: 7px;
+}
+
+.quote1 h2.services,.quote h2.clients {
+	font: 20px/45px 'ColaborateThinRegular', Arial, sans-serif;
+}
+
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style: normal;
+	font-weight: normal;
+}
+
+.quote1 h2.services strong,.quote h2.clients strong {
+	font-family: 'ColaborateMediumRegular', Arial, sans-serif;
+}
+
+#content {
+	background: #040001 url("/escolar/resources/images/school3.jpg") repeat;
+	font-size: 12px;
+	color: #3C464F;
+	letter-spacing: 0;
+	line-height: 18px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-position-y: -120px;
+}
+
+.bg_color {
+	background: url(../images/bg_color.jpg) repeat-x;
+	height: 22px;
+}
+
+#footer { /*height: 129px;*/
+	background: #040001;
+	color: #586060;
+	font-family: Arial;
+	font-size: 11.5px;
+	clear: both;
+	position: relative;
+	z-index: 10;
+	margin-top: -6em;
+}
+
+.wrapper1 {
+	width: 920px;
+	margin-right: auto;
+	margin-left: auto;
+	height: 6em;
+}
+
+.leftfooter {
+	float: left;
+	background: #040001;
+}
+
+.rightfooter {
+	float: right;
+	background: #040001;
+	padding: 10px;
+}
+
+#location {
+	background: #040001;
+	width: 220px;
+	float: left;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+#stayintouch {
+	background: #040001;
+	width: 170px;
+	float: left;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.bubbleInfo {
+	position: relative;
+	top: 6px;
+	float: left;
+	margin-right: 10px;
+}
+
+#location h2,#stayintouch h2 {
+	margin: 0px;
+	padding: 0px;
+	padding-top: 7px;
+	color: #B6B6B6;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.tw {
+	background: #040001 url(../images/tw.png) no-repeat;
+	width: 24px;
+	height: 24px;
+	margin-right: 30px;
+	float: left;
+	position: relative;
+}
+
+.fb {
+	background: #040001 url(../images/fb.png) no-repeat;
+	width: 24px;
+	height: 24px;
+	margin-right: 30px;
+	float: left;
+	position: relative;
+}
+
+.be {
+	background: #040001 url(../images/be.png) no-repeat;
+	width: 24px;
+	height: 24px;
+	float: left;
+	position: relative;
+}
+
+#real-content .ui-messages-info,#real-content .ui-messages-warn,#real-content .ui-messages-error,#real-content .ui-messages-fatal
+	{
+	border: 1px solid;
+	margin: 10px 0px;
+	padding: 5px 5px 5px 5px;
+}
+
+#real-content .ui-widget {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 14px;
+}
+
+#real-content .ui-messages-info-summary,#real-content .ui-messages-warn-summary,#real-content .ui-messages-error-summary,#real-content .ui-messages-fatal-summary,#real-content .ui-message-info-summary,#real-content .ui-message-warn-summary,#real-content .ui-message-error-summary,#real-content .ui-message-fatal-summary
+	{
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+.ui-state-hover,#real-content .ui-selectonelistbox .ui-state-active,.submenu-activado
+	{
+	background: #DADADA
+		url("#{request.contextPath}/resources/images/ui-bg_glass_75_dadada_1x400.png.png")
+		50% 50% repeat-x;
+	font-weight: normal;
+	color: #212121;
+}
+
+#real-content .ui-panelgrid td {
+	border-width: 0;
+	border-style: none;
+	border-color: inherit;
+	padding: 2px 10px;
+}
+
+#real-content .ui-panelgrid {
+	border-collapse: separate;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+#real-content .ui-panel .ui-panel-titlebar {
+	height: 20px;
+}
+
+#real-content .ui-tabs.ui-tabs-top>.ui-tabs-nav {
+	height: 28px;
+}
+
+element.style {
+	position: relative;
+	margin: 0px;
+	left: 0px;
+	right: 0px;
+	top: 106px;
+	bottom: 0px;
+	height: 256px;
+	width: 1116px;
+	z-index: 1;
+	display: block;
+	visibility: visible;
+	clear: both;
+}
+
+element.style {
+	position: relative;
+	height: 252px;
+	visibility: visible;
+}
+
+#real-content .sugeridaEnCurso {
+	
+}
+
+#real-content .especialEnCurso {
+	
+}
+
+#real-content .cambiadaEnCurso {
+	background: #FFFFCD;
+}
+
+#real-content .sugeridaEnUe {
+	background: #CDE1FF;
+}
+
+#real-content .especialEnUe {
+	background: #E1FFCD;
+}
+
+#real-content .cambiadaEnUe {
+	background: #FFFFCD;
+}
+
+#formBusqueda  .ui-widget-header {
+	display: block;
+}
+
+#formBusqueda .ui-selectonelistbox,#formBusqueda .ui-selectmanymenu {
+	width: 140px;
+	overflow: auto;
+	height: 77px;
+	padding: 4px;
+	position: relative;
+}
+
+#formBusqueda  span.ui-widget-header {
+	padding: 2px;
+	padding-left: 8px;
+}
+
+#formBusqueda .panelesComboBox {
+	margin-right: 10px;
+}
+
+#formBusqueda .subPanelesComboBox {
+	display: block;
+	margin-top: -3px;
+}
+
+#tabView:formMateriasCurso td {
+	vertical-align: top;
+}
+
+.alineado td {
+	vertical-align: top;
+}
+
+/* Mock*/
+#real-content  .ui-dt-c {
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+#real-content .blanco,#real-content .verde,#real-content .amarillo,#real-content .naranja,#real-content .rojo
+	{
+	text-align: center;
+	vertical-align: middle;
+}
+
+#real-content .blanco {
+	background: #FFF;
+}
+
+#real-content .verde {
+	background: #E1FFCD;
+}
+
+#real-content .naranja {
+	background: #FFD89D;
+}
+
+#real-content .rojo {
+	background: #FFBDBD;
+}
+
+#real-content .amarillo {
+	background: #FFFFCD;
+}
+
+#real-content .estilo-q {
+	border-left-width: 2px;
+	border-left-color: #888;
+	border-right-width: 2px;
+	border-right-color: #888;
+}
+
+#real-content .estilo-a {
+	border-left-width: 2px;
+	border-left-color: #555;
+	border-right-width: 2px;
+	border-right-color: #555;
+}
+
+#real-content .titulo {
+	text-align: center;
+	font-size: 20px;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.ui-dialog .ui-dialog-content {
+	border: 0;
+	padding: .5em 1em;
+	background: none;
+	height: auto;
+	overflow: inherit !important;
+}
+
+.filter-box {
+	width: 150px;
+}
+
+.filter-box  .ui-selectonemenu {
+	width: 150px !important;
+}
+
+.filter-box  .ui-selectonemenu-label {
+	width: 200px;
+}
+
+.ui-datatable .ui-datatable-tablewrapper .active-record {
+	
+}
+
+.ui-widget-content .ui-datatable .ui-datatable-tablewrapper .inactive-record
+	{
+	background: #F9FFCA;
+}

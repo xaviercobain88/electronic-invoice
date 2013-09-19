@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+
+		<h:form>
+			<h:outputText
+				value="Add Flowers Box (querying all Avaliable Growers)"
+				class="header2" />
+			<p:panel header="Flowers Finder" toggleable="true" toggleSpeed="500">
+				<h:panelGrid columns="5">
+					<h:panelGrid columns="1">
+						<p:outputLabel for="flowerCategoryId" value="Flower Category" />
+						<p:selectOneMenu id="flowerCategoryId" 
+							value="#{flowerFinderAction.categoryId}">
+							<f:selectItems
+								value="#{flowerFinderAction.flowerCategorySelectItems}" />
+							<p:ajax process="flowerCategoryId" partialSubmit="true"
+								update="flowerTypeId flowerColorId flowerVarietyId flowerGradeId"
+								event="change"
+								listener="#{flowerFinderAction.changeCategoryListener}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid columns="1">
+						<p:outputLabel for="flowerTypeId" value="Flower Type" />
+						<p:selectOneMenu id="flowerTypeId"
+							value="#{flowerFinderAction.typeId}">
+							<f:selectItems
+								value="#{flowerFinderAction.flowerTypeSelectItems}" />
+							<p:ajax update="flowerColorId flowerVarietyId flowerGradeId"
+								event="change"
+								listener="#{flowerFinderAction.changeTypeListener}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid columns="1">
+						<p:outputLabel for="flowerColorId" value="Flower Color" />
+						<p:selectOneMenu id="flowerColorId"
+							value="#{flowerFinderAction.colorId}">
+							<f:selectItems
+								value="#{flowerFinderAction.flowerColorSelectItems}" />
+							<p:ajax update="flowerVarietyId flowerGradeId" event="change"
+								listener="#{flowerFinderAction.changeColorListener}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid columns="1">
+						<p:outputLabel for="flowerVarietyId" value="Flower Variety" />
+						<p:selectOneMenu id="flowerVarietyId"
+							value="#{flowerFinderAction.varietyId}">
+							<f:selectItems
+								value="#{flowerFinderAction.flowerVarietySelectItems}" />
+							<p:ajax update="flowerGradeId" event="change"
+								listener="#{flowerFinderAction.changeVarietyListener}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid columns="1">
+						<p:outputLabel for="flowerGradeId" value="Flower Grade" />
+						<p:selectOneMenu id="flowerGradeId"
+							value="#{flowerFinderAction.gradeId}">
+							<f:selectItems
+								value="#{flowerFinderAction.flowerGradeSelectItems}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+	</ui:composition>
+</body>
+</html>
+
+

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="catalogsFormId">
+
+			<p:panel header="Catalog Edition">
+
+
+				<h:panelGrid columns="3">
+					<h:outputLabel value="Select Catalog Type: " />
+					<p:selectOneMenu value="#{catalogsDM.parentCatalogId}"
+						layout="pageDirection">
+						<p:ajax process="@this" partialSubmit="true" event="change"
+							listener="#{catalogsAction.selectParentListener}"
+							update="catalog-data-table-id" />
+						<f:selectItems value="#{catalogsDM.catalogSelectItems}" />
+					</p:selectOneMenu>
+					<p:commandButton value="Add Catalog"
+						oncomplete="$('.ui-datatable .ui-datatable-data .ui-row-editor .ui-icon-pencil').first().trigger('click');"
+						actionListener="#{catalogsAction.newChildCatalog}"
+						update="catalog-data-table-id" process="@this"></p:commandButton>
+				</h:panelGrid>
+
+
+				<p:dataTable var="catalog" value="#{catalogsDM.catalogs}"
+					editable="true" rowIndexVar="index" id="catalog-data-table-id"
+					rowStyleClass="#{catalog.active ? 'active-record' : 'inactive-record'}">
+					<f:facet name="header">
+						<h:outputText value="List of Catalogs" />
+					</f:facet>
+					<p:ajax event="rowEdit" listener="#{catalogsAction.onEdit}"
+						update="catalog-data-table-id" />
+					<p:ajax event="rowEditCancel" listener="#{catalogsAction.onCancel}"
+						update="catalog-data-table-id" oncomplete="location.reload(true);" />
+
+
+					<p:column headerText="Ord">
+
+
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column headerText="Name" sortBy="#{catalog.name}">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{catalog.name}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{catalog.name}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Description">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{catalog.description}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{catalog.description}" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Catalog Type">
+
+						<p:cellEditor rendered="#{catalog.id eq null}">
+							<f:facet name="output">
+								<h:outputText value="#{catalog.parentCatalog.name}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{catalog.parentCatalogId}"
+									layout="pageDirection">
+									<p:ajax process="@this" partialSubmit="true" event="change" />
+									<f:selectItems value="#{catalogsDM.catalogSelectItems}" />
+								</p:selectOneMenu>
+							</f:facet>
+
+						</p:cellEditor>
+						<h:outputText value="#{catalog.parentCatalog.name}"
+							rendered="#{catalog.id ne null}" />
+					</p:column>
+
+					<p:column headerText="Status" sortBy="#{catalog.active}">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="Active" rendered="#{catalog.active}" />
+								<h:outputText value="Inactive" rendered="#{!catalog.active}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectBooleanButton value="#{catalog.active}"
+									onLabel="Active" offLabel="Inactive" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+
+					<p:column style="width:6%">
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

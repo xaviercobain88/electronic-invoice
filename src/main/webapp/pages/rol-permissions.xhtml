@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="catalogsFormId">
+
+			<p:panel header="Role Permissions">
+				<h:panelGrid columns="2">
+
+
+					<h:outputLabel value="Roles: " />
+					<h:outputLabel value="Permissions: " />
+					<p:selectOneMenu value="#{rolePermissionsDM.selectedRoleId}"
+						layout="pageDirection">
+						<p:ajax process="@this" partialSubmit="true" event="change"
+							listener="#{rolePermissionsAction.selectRoleListener}"
+							update="permissions-output-panel-id" />
+						<f:selectItems value="#{rolePermissionsDM.roleSelectItems}" />
+					</p:selectOneMenu>
+
+					<p:outputPanel id="permissions-output-panel-id" autoUpdate="true">
+						<p:selectManyCheckbox id="select-permissions-id"
+							value="#{rolePermissionsDM.selectedPermissionsId}"
+							layout="pageDirection">
+							<f:selectItems value="#{rolePermissionsDM.permissionSelectItems}" />
+						</p:selectManyCheckbox>
+					</p:outputPanel>
+
+
+
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Save"
+						actionListener="#{rolePermissionsAction.savePermissions}"
+						ajax="false"></p:commandButton>
+					<p:commandButton value="Cancel"
+						actionListener="#{rolePermissionsAction.cancel}" ajax="false"></p:commandButton>
+
+				</h:panelGrid>
+
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

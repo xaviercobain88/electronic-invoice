@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form enctype="multipart/form-data">
+
+
+
+			<h:panelGrid columns="2">
+				<div id="left-side-bar"></div>
+				<p:tabView id="tabView" dynamic="true" cache="true">
+
+					<p:tab id="tba1" title="Muro" rendered="#{!playerDM.editar}">
+					</p:tab>
+
+					<p:tab id="tab2" title="Estadísticas"
+						rendered="#{!playerDM.editar}">
+					</p:tab>
+
+					<p:tab id="tab3" title="Información">
+						<p:fieldset legend="Cambiar Foto de Perfil" toggleable="true"
+							toggleSpeed="500" collapsed="true">
+							<p:fileUpload
+								fileUploadListener="#{playerAction.handlePhotoUpload}"
+								mode="advanced" sizeLimit="100000"
+								allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+							<p:outputPanel id="panel" autoUpdate="true">
+								<p:graphicImage value="waldopc.jpg" />
+							</p:outputPanel>
+						</p:fieldset>
+						<p:fieldset legend="Información General" toggleable="true"
+							toggleSpeed="500">
+							<h:panelGrid columns="3">
+
+								<p:outputLabel for="nombres" value="Nombres" />
+								<p:inputText id="nombres" required="true"
+									rendered="#{playerDM.editar}"
+									value="#{playerDM.user.firstName}"
+									requiredMessage="El campo 'Nombres' es requerido" />
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.user.firstName}" />
+								<h:outputText value="" />
+
+								<p:outputLabel for="apellidos" value="Apellidos" />
+								<p:inputText id="apellidos" required="true"
+									rendered="#{playerDM.editar}" value="#{playerDM.user.lastName}" />
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.user.lastName}" />
+								<h:outputText value="" />
+
+								<p:outputLabel for="ci" value="Cedula de Identidad" />
+								<p:inputText id="ci" rendered="#{playerDM.editar}"
+									value="#{playerDM.user.ci}" />
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.user.ci}" />
+								<h:outputText value="" />
+
+								<p:outputLabel for="usuario" value="Nombre de Usuario" />
+								<p:inputText id="usuario" required="true"
+									rendered="#{playerDM.editar}" value="#{playerDM.user.username}" />
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.user.username}" />
+								<h:outputText value="" />
+
+								<p:outputLabel for="fecha-nacimiento"
+									value="Fecha de Nacimiento" />
+								<p:calendar required="true" id="fecha-nacimiento"
+									rendered="#{playerDM.editar}"
+									value="#{playerDM.user.birthDate}"></p:calendar>
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.user.birthDate}" />
+								<h:outputText value="" />
+
+							</h:panelGrid>
+						</p:fieldset>
+
+						<p:fieldset legend="Información de Juego" toggleable="true"
+							toggleSpeed="500">
+							<h:panelGrid columns="3">
+
+								<p:outputLabel for="posicion" value="Posición Habitual" />
+								<p:selectOneRadio id="posicion"
+									value="#{playerDM.player.playerPositionEnum}"
+									rendered="#{playerDM.editar}" layout="pageDirection">
+									<f:selectItems value="#{infoPlayerAction.positionsSelectItem}" />
+								</p:selectOneRadio>
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.player.playerPositionEnum.nombre}" />
+								<h:outputText value="Ingresa la posición en la que más juegas"
+									rendered="#{playerDM.editar}" />
+								<h:outputText value="" rendered="#{!playerDM.editar}" />
+
+								<p:outputLabel for="numero-camiseta" value="Número de Camiseta" />
+								<p:inputText id="numero-camiseta" rendered="#{playerDM.editar}"
+									value="#{playerDM.player.jerseyNumber}" />
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.player.jerseyNumber}" />
+								<h:outputText value="" />
+
+								<p:outputLabel for="experiencia" value="Experiencia" />
+								<p:inputTextarea id="experiencia" rows="3"
+									rendered="#{playerDM.editar}"
+									value="#{playerDM.player.experience}"></p:inputTextarea>
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.player.experience}" />
+								<h:outputText rendered="#{playerDM.editar}"
+									value="Ingresa tu experiencia jugando, tiempo, torneos, etc" />
+								<h:outputText value="" rendered="#{!playerDM.editar}" />
+
+							</h:panelGrid>
+						</p:fieldset>
+
+						<p:fieldset legend="Información de Contacto" toggleable="true"
+							toggleSpeed="500" collapsed="true">
+							<h:panelGrid columns="3">
+
+								<p:outputLabel for="telefono-1" value="Celular" />
+								<p:inputText id="telefono-1" rendered="#{playerDM.editar}"
+									value="#{playerDM.user.telefonoMovil}" />
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.user.telefonoMovil}" />
+								<h:outputText endered="#{playerDM.editar}"
+									value="Ingresa el número inluyendo el cero (0), por ejemplo: 0998 123 456" />
+								<h:outputText value="" rendered="#{!playerDM.editar}" />
+
+								<p:outputLabel for="telefono-2" value="Teléfono convencional" />
+								<p:inputText id="telefono-2" rendered="#{playerDM.editar}"
+									value="#{playerDM.user.telefonoConvencional}" />
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.user.telefonoConvencional}" />
+								<h:outputText rendered="#{playerDM.editar}"
+									value="Ingresa el número inluyendo el código de provincia, por ejemplo: 022 632 145" />
+								<h:outputText value="" rendered="#{!playerDM.editar}" />
+
+
+								<p:outputLabel for="direccion" value="Dirección" />
+								<p:inputTextarea id="direccion" rows="3"
+									rendered="#{playerDM.editar}"
+									value="#{playerDM.user.direccion}"></p:inputTextarea>
+								<h:outputText rendered="#{!playerDM.editar}"
+									value="#{playerDM.user.direccion}" />
+								<h:outputText value="" />
+
+							</h:panelGrid>
+						</p:fieldset>
+
+						<p:commandButton value="Guardar"
+							action="#{infoPlayerAction.savePlayer}"></p:commandButton>
+
+					</p:tab>
+					<p:tab id="tab4" title="Seguridad" rendered="#{!playerDM.editar}">
+
+					</p:tab>
+
+				</p:tabView>
+			</h:panelGrid>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
