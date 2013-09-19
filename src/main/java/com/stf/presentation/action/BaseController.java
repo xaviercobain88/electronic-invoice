@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
@@ -15,11 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.stf.business.facade.CatalogFacade;
-import com.stf.business.facade.GeographicLocationFacade;
-import com.stf.exception.NotFoundException;
-import com.stf.persistence.entity.Catalog;
-import com.stf.persistence.entity.GeographicLocation;
 import com.stf.persistence.util.ComboBoxModel;
 import com.stf.util.BaseUtils;
 import com.stf.util.LabelsConstants;
@@ -29,10 +23,6 @@ import com.stf.util.ParametersConstants;
 //import ec.com.superleague.persistence.entity.ComboBoxModel;
 
 public abstract class BaseController extends BaseUtils {
-	@EJB
-	GeographicLocationFacade geographicLocationFacade;
-	@EJB
-	CatalogFacade catalogFacade;
 
 	protected String getUsername() {
 		if (getServletRequest().getUserPrincipal() != null) {
@@ -215,64 +205,8 @@ public abstract class BaseController extends BaseUtils {
 		return items;
 	}
 
-	/**
-	 * @return
-	 */
-	public List<SelectItem> getCountries() {
-		try {
-			return getSelectItems(geographicLocationFacade.findStates(), true);
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-			addErrorMessage("Unable to load Countries");
-			return null;
-		}
-	}
+	
 
-	/**
-	 * @param parentId
-	 * @return
-	 */
-	public List<SelectItem> getStates(Integer parentId) {
-		try {
-			return getSelectItems(
-					geographicLocationFacade.findByParentId(parentId), true);
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-			addErrorMessage("Unable to load States");
-			return null;
-		}
-	}
-
-	/**
-	 * @param catalogName
-	 * @return
-	 */
-	public List<SelectItem> getSelectItemsByCatalog(String catalogName) {
-		try {
-			List<Catalog> result = catalogFacade.findActiveByParentId(Integer
-					.parseInt(getParameterFromResourceBundle(catalogName)));
-			return getSelectItems(result, true);
-
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-			addErrorMessage("Company Types not found");
-			return null;
-		}
-	}
-
-	/**
-	 * @return
-	 */
-	public List<SelectItem> getCompanyTypeSelectItems() {
-		return getSelectItemsByCatalog(ParametersConstants.COMPANY_TYPE_ID);
-	}
-
-	/**
-	 * @return
-	 */
-	public List<SelectItem> getLegalFormationSelectItems() {
-		return getSelectItemsByCatalog(ParametersConstants.LEGAL_FORMATION_ID);
-	}
 	
 	
 

@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import com.stf.persistence.entity.Catalog;
-
 @Named
 @SessionScoped
 public class RequestParametersDM implements Serializable {

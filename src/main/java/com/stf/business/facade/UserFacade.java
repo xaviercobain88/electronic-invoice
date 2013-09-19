@@ -13,19 +13,10 @@ import javax.ejb.TransactionAttributeType;
 
 import com.stf.exception.NotFoundException;
 import com.stf.exception.NotSaveException;
-import com.stf.persistence.dao.BankReferenceDao;
-import com.stf.persistence.dao.ContactInformationDao;
 import com.stf.persistence.dao.PermissionDao;
-import com.stf.persistence.dao.ShippingAddressDao;
-import com.stf.persistence.dao.TradeReferenceDao;
 import com.stf.persistence.dao.UserDao;
-import com.stf.persistence.entity.BankReference;
-import com.stf.persistence.entity.ContactInformation;
 import com.stf.persistence.entity.Permission;
-import com.stf.persistence.entity.ShippingAddress;
-import com.stf.persistence.entity.TradeReference;
 import com.stf.persistence.entity.User;
-import com.stf.security.PermissionWrapper;
 import com.stf.util.ParametersConstants;
 
 /**
@@ -39,14 +30,6 @@ public class UserFacade {
 
 	@EJB
 	UserDao userDao;
-	@EJB
-	ShippingAddressDao shippingAddressDao;
-	@EJB
-	BankReferenceDao bankReferenceDao;
-	@EJB
-	TradeReferenceDao tradeReferenceDao;
-	@EJB
-	ContactInformationDao contactInformationDao;
 	@EJB
 	PermissionDao permissionDao;
 
@@ -70,13 +53,7 @@ public class UserFacade {
 	 */
 	public User findUserByUsername(String username) throws NotFoundException {
 		List<User> foundClients = userDao.findByUsername(username);
-		if (foundClients != null && !foundClients.isEmpty()) {
-			if (foundClients.get(0).getShippingAddresses() != null) {
-				foundClients.get(0).getShippingAddresses().size();
-			}
-			return foundClients.get(0);
-		}
-		return null;
+		return foundClients.get(0);
 	}
 
 	/**
@@ -86,63 +63,6 @@ public class UserFacade {
 	 */
 	public User saveUser(User user) throws NotSaveException {
 
-		/*
-		 * List Shipping Address List Contact Information List Trade Reference
-		 * -> Shipping Address List Bank Reference -> Shipping Addres
-		 */
-
-		if (user.getId() == null) {
-			// Save Entity User
-			// remove childreferences
-			List<BankReference> bankReferences = user.getBankReferences();
-			List<TradeReference> tradeReferences = user.getTradeReferences();
-			List<ContactInformation> contactInformations = user
-					.getContactInformationList();
-			List<ShippingAddress> shippingAddresses = user
-					.getShippingAddresses();
-			// Save clean user
-			user.setBankReferences(null);
-			user.setTradeReferences(null);
-			user.setContactInformationList(null);
-			user.setShippingAddresses(null);
-			User userSaved = userDao.create(user);
-
-			if (user == userSaved)
-				System.out
-						.println("Si es lo mismo y por lo tanto actualiza al objeto");
-			// Save Shipping Address
-			for (ShippingAddress shippingAddress : shippingAddresses) {
-				List<User> users = new ArrayList<User>();
-				users.add(userSaved);
-				shippingAddress.setClients(users);
-				shippingAddressDao.create(shippingAddress);
-			}
-			// Save Contact Information
-			System.out.println(contactInformations.size());
-			for (ContactInformation contactInformation : contactInformations) {
-				List<User> users = new ArrayList<User>();
-				users.add(userSaved);
-				contactInformation.setClients(users);
-				contactInformationDao.create(contactInformation);
-			}
-			// Save Bank Reference
-			for (BankReference bankReference : bankReferences) {
-				ShippingAddress shippingAddress = shippingAddressDao
-						.create(bankReference.getShippingAddress());
-				bankReference.setShippingAddress(shippingAddress);
-				bankReference.setClient(userSaved);
-				bankReferenceDao.create(bankReference);
-			}
-			// Save Trade Reference
-			for (TradeReference tradeReference : tradeReferences) {
-				ShippingAddress shippingAddress = shippingAddressDao
-						.create(tradeReference.getShippingAddress());
-				tradeReference.setShippingAddress(shippingAddress);
-				tradeReference.setClient(userSaved);
-				tradeReferenceDao.create(tradeReference);
-			}
-
-		}
 		return null;
 	}
 
@@ -193,8 +113,6 @@ public class UserFacade {
 	 * @return
 	 */
 	public Boolean isValidPassword(User user) {
-		System.out.println(user.getPassword());
-		System.out.println(user.getReTypePasssword());
 		if (user != null && user.getPassword() != null
 				&& !user.getPassword().isEmpty()
 				&& user.getPassword().equals(user.getReTypePasssword())) {
@@ -204,6 +122,8 @@ public class UserFacade {
 
 	}
 
+	
+	
 	/**
 	 * @param username
 	 * @return

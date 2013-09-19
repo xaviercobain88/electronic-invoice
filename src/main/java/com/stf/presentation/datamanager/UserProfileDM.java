@@ -3,12 +3,9 @@ package com.stf.presentation.datamanager;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIComponent;
 import javax.inject.Named;
 
 import com.stf.persistence.entity.User;
-import com.stf.persistence.entity.ContactInformation;
-import com.stf.persistence.entity.ShippingAddress;
 
 @Named
 @SessionScoped

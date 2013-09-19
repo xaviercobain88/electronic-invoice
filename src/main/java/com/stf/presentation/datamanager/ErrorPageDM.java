@@ -1,15 +1,9 @@
 package com.stf.presentation.datamanager;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
 import javax.inject.Named;
-
-import com.stf.persistence.entity.User;
-import com.stf.persistence.entity.Grower;
-import com.stf.persistence.entity.Item;
 
 @Named
 @SessionScoped
