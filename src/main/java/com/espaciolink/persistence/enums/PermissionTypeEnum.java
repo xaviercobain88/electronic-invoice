@@ -2,9 +2,7 @@ package com.espaciolink.persistence.enums;
 
 public enum PermissionTypeEnum {
 
-	READ_OWN("Read Own"), WRITE_OWN("Write Own"), EXECUTE_OWN("Execute Own"), READ_OTHER(
-			"Read Other"), WRITE_OTHER("Write Other"), EXECUTE_OTHER(
-			"Execute Other");
+	READ("Lectura"), WRITE("Escritura");
 
 	private final String name;
 

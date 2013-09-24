@@ -26,12 +26,12 @@ import javax.persistence.Transient;
 @Table(name = "user")
 @NamedQueries({
 		@NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
-		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.eMail = :email") })
+		@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email") })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(columnDefinition = "BIT")
@@ -41,7 +41,7 @@ public class User implements Serializable {
 
 	private String username;
 
-	private String eMail;
+	private String email;
 
 	@OneToMany(mappedBy = "user")
 	private List<ElectronicInvoice> electronicInvoices;
@@ -55,9 +55,9 @@ public class User implements Serializable {
 
 	@Transient
 	private List<Permission> permissions;
-	
+
 	@Transient
-    private String reTypePasssword;
+	private String reTypePasssword;
 
 	public User() {
 	}
@@ -142,14 +142,6 @@ public class User implements Serializable {
 		this.permissions = permissions;
 	}
 
-	public String geteMail() {
-		return eMail;
-	}
-
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
-	}
-
 	public String getReTypePasssword() {
 		return reTypePasssword;
 	}
@@ -157,6 +149,13 @@ public class User implements Serializable {
 	public void setReTypePasssword(String reTypePasssword) {
 		this.reTypePasssword = reTypePasssword;
 	}
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 }

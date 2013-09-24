@@ -15,7 +15,7 @@ public class Institution implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(columnDefinition = "BIT")
@@ -23,8 +23,13 @@ public class Institution implements Serializable {
 
 	@Column(name = "certificate_url")
 	private String certificateUrl;
+	
+	@Column(name = "jasper_url")
+	private String jasperUrl;
 
 	private String salt;
+
+	private String name;
 
 	// bi-directional many-to-one association to User
 	@OneToMany(mappedBy = "institution")
@@ -86,5 +91,23 @@ public class Institution implements Serializable {
 
 		return user;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getJasperUrl() {
+		return jasperUrl;
+	}
+
+	public void setJasperUrl(String jasperUrl) {
+		this.jasperUrl = jasperUrl;
+	}
+	
+	
 
 }

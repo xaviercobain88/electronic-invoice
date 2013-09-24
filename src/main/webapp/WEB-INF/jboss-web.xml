@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <jboss-web>
-	<security-domain>stfSecurity</security-domain>
+	<security-domain>electronicInvoiceSecurity</security-domain>
 </jboss-web>

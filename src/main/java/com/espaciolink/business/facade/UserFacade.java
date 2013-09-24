@@ -93,12 +93,12 @@ public class UserFacade {
 	 * @throws NotFoundException
 	 */
 	public Boolean isValidEmail(User user) throws NotFoundException {
-		if (user != null && user.geteMail() != null
-				&& !user.geteMail().isEmpty()) {
-			List<User> resultList = userDao.findByEmail(user.geteMail());
+		if (user != null && user.getEmail() != null
+				&& !user.getEmail().isEmpty()) {
+			List<User> resultList = userDao.findByEmail(user.getEmail());
 			if (user.getId() != null) {
 				User userFinded = userDao.findById(user.getId());
-				if (userFinded.geteMail().equals(user.geteMail())) {
+				if (userFinded.getEmail().equals(user.getEmail())) {
 					return true;
 				}
 			}
@@ -122,8 +122,6 @@ public class UserFacade {
 
 	}
 
-	
-	
 	/**
 	 * @param username
 	 * @return

@@ -14,7 +14,7 @@ public class ElectronicInvoice implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name = "pdf_url")
@@ -28,9 +28,6 @@ public class ElectronicInvoice implements Serializable {
 
 	@Column(name = "xml_url")
 	private String xmlUrl;
-
-	@Column(name = "jasper_url")
-	private String jasperUrl;
 
 	// bi-directional many-to-one association to User
 	@ManyToOne
@@ -98,14 +95,6 @@ public class ElectronicInvoice implements Serializable {
 
 	public void setInvoiceHeader(InvoiceHeader invoiceHeader) {
 		this.invoiceHeader = invoiceHeader;
-	}
-
-	public String getJasperUrl() {
-		return jasperUrl;
-	}
-
-	public void setJasperUrl(String jasperUrl) {
-		this.jasperUrl = jasperUrl;
 	}
 
 }

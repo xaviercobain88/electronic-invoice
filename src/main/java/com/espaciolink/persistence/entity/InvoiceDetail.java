@@ -13,7 +13,7 @@ public class InvoiceDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	// bi-directional many-to-one association to InvoiceHeader

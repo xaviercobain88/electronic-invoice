@@ -25,7 +25,7 @@ public abstract class GenericDao<T, PK extends Serializable> {
 
 	private Class<T> type;
 
-	@PersistenceContext(unitName = "stfPU")
+	@PersistenceContext(unitName = "electronicInvoicePU")
 	protected EntityManager entityManager;
 
 	/**
