@@ -136,10 +136,13 @@ public class UserFacade {
 			ArrayList<Boolean> activeList = new ArrayList<Boolean>();
 			activeList.add(true);
 			user.setPermissions(permissionDao.findByRole(username, activeList));
+			System.out.println("entro al anonimo");
 			return user;
 		}
 
 		List<User> users = userDao.findByUsername(username);
+		System.out.println("************************************************************");
+		System.out.println(users.size());
 		User user = null;
 		List<Permission> permissions = null;
 		if (users != null && !users.isEmpty()) {
@@ -149,6 +152,8 @@ public class UserFacade {
 			if (permissions != null && !permissions.isEmpty()) {
 				user = users.get(0);
 				user.setPermissions(permissions);
+			}else{
+				System.out.println("No tiene permisos");
 			}
 		}
 

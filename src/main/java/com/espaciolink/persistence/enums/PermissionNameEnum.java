@@ -2,8 +2,8 @@ package com.espaciolink.persistence.enums;
 
 public enum PermissionNameEnum {
 
-	USER_PROFILE("User Profile"), CATALOGS("Catalogs"), GEOGRAPHIC_LOCATIONS(
-			"Geographic Locations"), ROLE_PERMISSIONS("Role Permissions");
+	GENERATE_PDF_INVOICE("Generar factura PDF");
+	
 
 	private final String name;
 

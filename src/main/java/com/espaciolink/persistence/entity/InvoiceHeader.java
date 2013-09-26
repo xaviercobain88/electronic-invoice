@@ -1,8 +1,16 @@
 package com.espaciolink.persistence.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The persistent class for the invoice_header database table.
@@ -10,6 +18,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "invoice_header")
+@XmlRootElement
 public class InvoiceHeader implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,6 +28,7 @@ public class InvoiceHeader implements Serializable {
 
 	// bi-directional many-to-one association to ElectronicInvoice
 	@OneToMany(mappedBy = "invoiceHeader")
+	@XmlTransient
 	private List<ElectronicInvoice> electronicInvoices;
 
 	// bi-directional many-to-one association to InvoiceDetail

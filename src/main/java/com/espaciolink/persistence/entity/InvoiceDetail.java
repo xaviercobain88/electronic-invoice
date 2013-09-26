@@ -1,7 +1,15 @@
 package com.espaciolink.persistence.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The persistent class for the invoice_detail database table.
@@ -19,6 +27,7 @@ public class InvoiceDetail implements Serializable {
 	// bi-directional many-to-one association to InvoiceHeader
 	@ManyToOne
 	@JoinColumn(name = "invoice_header_id")
+	@XmlTransient
 	private InvoiceHeader invoiceHeader;
 
 	public InvoiceDetail() {
