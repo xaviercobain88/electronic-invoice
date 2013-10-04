@@ -7,10 +7,10 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>smoothness</param-value>
 	</context-param>
-	<context-param>
-		<param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name>
-		<param-value>com.stf.presentation.action,com.stf.presentation.datamanager</param-value>
-	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name> -->
+<!-- 		<param-value>com.stf.presentation.action,com.stf.presentation.datamanager</param-value> -->
+<!-- 	</context-param> -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

@@ -216,14 +216,72 @@
 		</dependency>
 		<!-- The open-source /url/#{rewriting} solution for Servlet, JSF, and Java 
 			EE -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.ocpsoft</groupId> -->
+		<!-- <artifactId>prettyfaces-jsf2</artifactId> -->
+		<!-- <version>3.3.3</version> -->
+		<!-- </dependency> -->
+		<!-- Dependencias para el firmado del xml -->
 		<dependency>
-			<groupId>com.ocpsoft</groupId>
-			<artifactId>prettyfaces-jsf2</artifactId>
-			<version>3.3.3</version>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.5</version>
 		</dependency>
-		
-
-
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>es.mityc.jumbo.adsi</groupId>
+			<artifactId>MITyCLibAPI</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>es.mityc.jumbo.adsi</groupId>
+			<artifactId>MITyCLibTSA</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>es.mityc.jumbo.adsi</groupId>
+			<artifactId>xmlsec-1.4.2-ADSI</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>es.mityc.jumbo.adsi</groupId>
+			<artifactId>MITyCLibOCSP</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>es.mityc.jumbo.adsi</groupId>
+			<artifactId>MITyCLibXADES</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>es.mityc.jumbo.adsi</groupId>
+			<artifactId>MITyCLibCert</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>es.mityc.jumbo.adsi</groupId>
+			<artifactId>MITyCLibCrypt</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>es.mityc.jumbo.adsi</groupId>
+			<artifactId>MITyCLibPolicy</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>es.mityc.jumbo.adsi</groupId>
+			<artifactId>MITyCLibTrust</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.parsers</groupId>
+			<artifactId>jaxp-ri</artifactId>
+			<version>1.4.5</version>
+		</dependency>
 
 
 
