@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<factura id="comprobante" version="1.0.0">
+	<infoTributaria>
+		<ambiente>1</ambiente>
+		<tipoEmision>1</tipoEmision>
+		<razonSocial>Link Design</razonSocial>
+		<ruc>1792089719001</ruc>
+		<claveAcceso>0110201301179208971900110010010000999991234567810
+		</claveAcceso>
+		<codDoc>01</codDoc>
+		<estab>001</estab>
+		<ptoEmi>001</ptoEmi>
+		<secuencial>000099999</secuencial>
+		<dirMatriz>Av. De Los Shyris N344 y Av. Eloy Alfaro</dirMatriz>
+	</infoTributaria>
+	<infoFactura>
+		<fechaEmision>01/10/2013</fechaEmision>
+		<dirEstablecimiento>Av. De Los Shyris N344 y Av. Eloy Alfaro
+		</dirEstablecimiento>
+		<obligadoContabilidad>SI</obligadoContabilidad>
+		<tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+		<razonSocialComprador>PRUEBAS SERVICIO DERENTAS INTERNAS
+		</razonSocialComprador>
+		<identificacionComprador>1713328506001</identificacionComprador>
+		<totalSinImpuestos>100.00</totalSinImpuestos>
+		<totalDescuento>0.00</totalDescuento>
+		<totalConImpuestos>
+			<totalImpuesto>
+				<codigo>2</codigo>
+				<codigoPorcentaje>2</codigoPorcentaje>
+				<baseImponible>100.00</baseImponible>
+				<valor>12.00</valor>
+			</totalImpuesto>
+		</totalConImpuestos>
+		<propina>0.00</propina>
+		<importeTotal>112.00</importeTotal>
+		<moneda>DOLAR</moneda>
+	</infoFactura>
+
+
+	<detalles>
+		<detalle>
+			<codigoPrincipal>011</codigoPrincipal>
+			<descripcion>PRUEBA</descripcion>
+			<cantidad>1.000000</cantidad>
+			<precioUnitario>100.000000</precioUnitario>
+			<descuento>0</descuento>
+			<precioTotalSinImpuesto>100.00</precioTotalSinImpuesto>
+			<impuestos>
+				<impuesto>
+					<codigo>2</codigo>
+					<codigoPorcentaje>2</codigoPorcentaje>
+					<tarifa>12.00</tarifa>
+					<baseImponible>100.00</baseImponible>
+					<valor>12.00</valor>
+				</impuesto>
+			</impuestos>
+		</detalle>
+	</detalles>
+</factura>

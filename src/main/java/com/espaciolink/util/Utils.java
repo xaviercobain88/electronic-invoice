@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +28,8 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
-import org.primefaces.event.FileUploadEvent;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.StringUtils;
 
 /**
  * Clase con las utilidades generales.
@@ -68,6 +68,41 @@ public final class Utils {
 	private static final String PATRON_ALPHANUMERICO = "^[a-zA-Z0-9]+$";
 
 	private static final String PATRON_NUMERICO = "^[0-9]+$";
+
+	public static String decode(String s) {
+		return StringUtils.newStringUtf8(Base64.decodeBase64(s));
+	}
+
+	public static Boolean createFile(final String content,
+			final String fileName, final String path) {
+		String completePath = path + fileName;
+		if (path == null) {
+			completePath = fileName;
+		}
+
+		File file = new File(completePath);
+
+		try {
+			FileOutputStream fop = new FileOutputStream(file);
+			// if file doesn't exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			// get the content in bytes
+			byte[] contentInBytes = content.getBytes();
+
+			fop.write(contentInBytes);
+			fop.flush();
+			fop.close();
+
+			return true;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	/**
 	 * Calcula la edad dada una fecha de nacimiento.
@@ -208,15 +243,15 @@ public final class Utils {
 	 * @param pathRepositorio
 	 * @throws IOException
 	 */
-	public static void saveImage(final byte[] contents, final String fileName, final String pathRepositorio)
-			throws IOException {
+	public static void saveImage(final byte[] contents, final String fileName,
+			final String pathRepositorio) throws IOException {
 
-			BufferedImage img = ImageIO.read(new ByteArrayInputStream(contents));
-			File outputFile = new File(fileName);
-			ImageIO.write(img, "PNG", outputFile);
+		BufferedImage img = ImageIO.read(new ByteArrayInputStream(contents));
+		File outputFile = new File(fileName);
+		ImageIO.write(img, "PNG", outputFile);
 
 	}
-	
+
 	/**
 	 * Incluir aqui­ la descripcion del metodo.
 	 * 
@@ -264,8 +299,6 @@ public final class Utils {
 
 	}
 
-	
-	
 	/**
 	 * Representa la funcion LPAD de base de datos, que agrega caracteres a un
 	 * string dado, con un size maximo.
@@ -290,8 +323,6 @@ public final class Utils {
 		return builder.toString();
 	}
 
-	
-	
 	/**
 	 * Incluir aqui­ la descripcion del metodo.
 	 * 
@@ -664,20 +695,20 @@ public final class Utils {
 		return stringWriter.toString();
 	}
 
-//	/**
-//	 * @param key
-//	 * @param locale
-//	 * @param arguments
-//	 * @throws FileManagerException
-//	 */
-//	public static byte[] generarPdfReporteDesdeHtml(
-//			final String contentPanelHtml,
-//			final DireccionPaginaEnum direccionPaginaEnum)
-//			throws FileManagerException {
-//		FileManager fileManager = new FileManager();
-//		return fileManager.generarPdfReporteDesdeHtml(contentPanelHtml,
-//				DireccionPaginaEnum.LANDSCAPE);
-//	}
+	// /**
+	// * @param key
+	// * @param locale
+	// * @param arguments
+	// * @throws FileManagerException
+	// */
+	// public static byte[] generarPdfReporteDesdeHtml(
+	// final String contentPanelHtml,
+	// final DireccionPaginaEnum direccionPaginaEnum)
+	// throws FileManagerException {
+	// FileManager fileManager = new FileManager();
+	// return fileManager.generarPdfReporteDesdeHtml(contentPanelHtml,
+	// DireccionPaginaEnum.LANDSCAPE);
+	// }
 
 	/**
 	 * @param numero

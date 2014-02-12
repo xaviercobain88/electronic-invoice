@@ -6,8 +6,9 @@ import org.w3c.dom.Document;
 
 import es.mityc.firmaJava.libreria.xades.DataToSign;
 import es.mityc.firmaJava.libreria.xades.XAdESSchemas;
+import es.mityc.firmaJava.role.SimpleClaimedRole;
 import es.mityc.javasign.EnumFormatoFirma;
-import es.mityc.javasign.xml.refs.AllXMLToSign;
+import es.mityc.javasign.xml.refs.InternObjectToSign;
 import es.mityc.javasign.xml.refs.ObjectToSign;
 
 /**
@@ -34,14 +35,14 @@ public class EnvelopedSignature extends GenericXMLSignature {
 	 * Recurso a firmar
 	 */
 //	private final static String RESOURCE_TO_SIGN = "com/espaciolink/business/facade/factura.xml";
-	private final static String RESOURCE_TO_SIGN = "factura.xml";
+	private final static String RESOURCE_TO_SIGN = "electronic-invoice.xml";
 
 	/**
 	 * <p>
 	 * Fichero donde se desea guardar la firma
 	 * </p>
 	 */
-	private final static String SIGN_FILE_NAME = "factura-firmada.xml";
+	private final static String SIGN_FILE_NAME = "signed-electronic-invoice.xml";
 
 	/**
 	 * <p>
@@ -63,11 +64,14 @@ public class EnvelopedSignature extends GenericXMLSignature {
 		dataToSign.setXadesFormat(EnumFormatoFirma.XAdES_BES);
 		dataToSign.setEsquema(XAdESSchemas.XAdES_132);
 		dataToSign.setXMLEncoding("UTF-8");
+		dataToSign.addClaimedRol(new SimpleClaimedRole("Rol de firma"));
 		dataToSign.setEnveloped(true);
 		Document docToSign = getDocument(RESOURCE_TO_SIGN);
 		dataToSign.setDocument(docToSign);
-		dataToSign.addObject(new ObjectToSign(new AllXMLToSign(),
-				"Documento de ejemplo", null, "text/xml", null));
+		
+		dataToSign.addObject(new ObjectToSign(new InternObjectToSign("comprobante"),
+				"Documento de ejemplo", null , "text/xml", null));
+		dataToSign.setParentSignNode("comprobante");
 		return dataToSign;
 	}
 
@@ -75,4 +79,15 @@ public class EnvelopedSignature extends GenericXMLSignature {
 	protected String getSignatureFileName() {
 		return SIGN_FILE_NAME;
 	}
+
+	public static String getResourceToSign() {
+		return RESOURCE_TO_SIGN;
+	}
+
+	public static String getSignFileName() {
+		return SIGN_FILE_NAME;
+	}
+	
+	
+	
 }
