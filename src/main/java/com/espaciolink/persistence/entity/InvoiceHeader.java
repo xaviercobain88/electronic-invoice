@@ -3,14 +3,21 @@ package com.espaciolink.persistence.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.espaciolink.persistence.enums.SRIStatusTypeEnum;
 
 /**
  * The persistent class for the invoice_header database table.
@@ -18,13 +25,24 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "invoice_header")
-@XmlRootElement
+//@XmlRootElement
+@NamedQueries({ @NamedQuery(name = "InvoiceHeader.findByClaveAccesoComprobante", query = "SELECT ih FROM  InvoiceHeader ih  WHERE ih.claveAccesoComprobante = :claveAccesoComprobante") })
 public class InvoiceHeader implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	private Integer id;
+
+	private String claveAccesoComprobante;
+	
+	
+	@Column(name = "numero_autorizacion")
+	private String numeroAutorizacion;
+
+	@Column(name = "estado_sri")
+	@Enumerated(EnumType.STRING)
+	private SRIStatusTypeEnum permissionNameEnum;
 
 	// bi-directional many-to-one association to ElectronicInvoice
 	@OneToMany(mappedBy = "invoiceHeader")
@@ -91,5 +109,30 @@ public class InvoiceHeader implements Serializable {
 
 		return invoiceDetail;
 	}
+
+	public String getClaveAccesoComprobante() {
+		return claveAccesoComprobante;
+	}
+
+	public void setClaveAccesoComprobante(String claveAccesoComprobante) {
+		this.claveAccesoComprobante = claveAccesoComprobante;
+	}
+
+	public SRIStatusTypeEnum getPermissionNameEnum() {
+		return permissionNameEnum;
+	}
+
+	public void setPermissionNameEnum(SRIStatusTypeEnum permissionNameEnum) {
+		this.permissionNameEnum = permissionNameEnum;
+	}
+
+	public String getNumeroAutorizacion() {
+		return numeroAutorizacion;
+	}
+
+	public void setNumeroAutorizacion(String numeroAutorizacion) {
+		this.numeroAutorizacion = numeroAutorizacion;
+	}
+	
 
 }

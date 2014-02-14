@@ -27,12 +27,12 @@ public class Guard {
 	@AroundInvoke 
 	public Object validatePermissions(InvocationContext ic)
 			throws Exception {
-		Method method = ic.getMethod();
-		User user = users.get();
-		if (user == null || !isAllowed(method, user)) {
-			throw new SecurityException(
-					"User  is not allowed to execute the method " + method);
-		}
+//		Method method = ic.getMethod();
+//		User user = users.get();
+//		if (user == null || !isAllowed(method, user)) {
+//			throw new SecurityException(
+//					"User  is not allowed to execute the method " + method);
+//		}
 		return ic.proceed();
 	}
 
@@ -44,15 +44,16 @@ public class Guard {
 	boolean isAllowed(Method method, User u) {
 		AllowedPermission annotation = method
 				.getAnnotation(AllowedPermission.class);
-		if (annotation == null) {
-			return true;
-		}
-		List<Permission> permissions = u.getPermissions();
-		if (permissions != null && !permissions.isEmpty()) {
-			for (Permission permission : permissions) {
-				return true;
-			}
-		}
-		return false;
+		return true;
+//		if (annotation == null) {
+//			return true;
+//		}
+//		List<Permission> permissions = u.getPermissions();
+//		if (permissions != null && !permissions.isEmpty()) {
+//			for (Permission permission : permissions) {
+//				return true;
+//			}
+//		}
+//		return false;
 	}
 }

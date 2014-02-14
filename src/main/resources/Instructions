@@ -1,0 +1,1 @@
+sudo keytool -importcert -file celcer.sri.gob.ec -keystore /usr/lib/jvm/java-7-oracle/jre/lib/security/cacerts -alias "celcer.sri.gob.ec"
